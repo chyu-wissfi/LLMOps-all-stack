@@ -6,6 +6,10 @@
 from injector import Injector
 from internal.server import Http
 from internal.router import Router
+from dotenv import load_dotenv
+
+# 导入环境变量
+load_dotenv()
 
 # 初始化依赖注入容器
 injector = Injector()

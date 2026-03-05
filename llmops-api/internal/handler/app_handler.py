@@ -7,9 +7,7 @@
 from flask import request
 from openai import OpenAI
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
 
 class AppHandler:
     """
