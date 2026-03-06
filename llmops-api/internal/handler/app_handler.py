@@ -3,11 +3,11 @@
 @Author: chyu.wissfi@gmail.com
 @Description: Application handler
 """
-from flask import request, jsonify
 from openai import OpenAI
 import os
 from internal.schema.app_schema import CompletionReq
-from pkg.response import success_json, fail_json, validate_error_json
+from pkg.response import success_json, validate_error_json
+from internal.exception import FailException
 
 
 class AppHandler:
@@ -44,7 +44,7 @@ class AppHandler:
         return success_json({"content": content})   # 这个接口返回的状态码永远是200
 
     def ping(self):
-        return {"ping": "pong"}
+        raise FailException("数据未找到")
 
 
 if __name__ == "__main__":

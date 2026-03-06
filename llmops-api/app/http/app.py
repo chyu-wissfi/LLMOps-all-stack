@@ -22,3 +22,4 @@ app = Http(__name__, conf=conf, router=injector.get(Router))
 
 if __name__ == "__main__":
     app.run(debug=True)
+    # app.run(debug=False)
