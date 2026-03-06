@@ -5,6 +5,7 @@
 """
 
 from injector import Injector, inject
+from dataclasses import dataclass
 import injector 
 
 
@@ -19,6 +20,16 @@ class B:
     def print(self):
         print(f"The name of class A is {self.a.name}")
 
+@inject
+@dataclass
+class C:
+    a : A
+
+    def print(self):
+        print(f"The name of class A is {self.a.name}")
+
 injector = Injector()
 b = injector.get(B)
 b.print()
+c = injector.get(C)
+c.print()

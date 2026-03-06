@@ -7,14 +7,17 @@ from injector import Injector
 from internal.server import Http
 from internal.router import Router
 from dotenv import load_dotenv
+from config import Config
 
 # 导入环境变量
 load_dotenv()
 
+conf = Config()
+
 # 初始化依赖注入容器
 injector = Injector()
 
-app = Http(__name__, router=injector.get(Router))
+app = Http(__name__, conf=conf, router=injector.get(Router))
 
 
 if __name__ == "__main__":

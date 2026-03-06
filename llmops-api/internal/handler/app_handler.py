@@ -3,10 +3,10 @@
 @Author: chyu.wissfi@gmail.com
 @Description: Application handler
 """
-
 from flask import request
 from openai import OpenAI
 import os
+from internal.schema.app_schema import CompletionReq
 
 
 class AppHandler:
@@ -16,9 +16,12 @@ class AppHandler:
     def completion(self) -> dict:
         """
         聊天接口
+        基础聊天接口，接收用户输入，调用OpenAI API，返回模型响应
         """
         # 1.提取从接口中获取的输入，POST
-        query = request.json.get("query")
+        req = CompletionReq(data=request.json)
+        if not req.validate():
+            return validate_error_json(req.errors)
 
         # 2.构建OpenAI 客户端并发起请求
         client = OpenAI(
@@ -31,7 +34,7 @@ class AppHandler:
             model="gpt-5",
             messages=[
                 {"role": "system", "content": "你是一个专业的助手,请回答用户的问题"},
-                {"role": "user", "content": query},
+                {"role": "user", "content": req.query.data},
             ],
         )
 
