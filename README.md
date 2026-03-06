@@ -100,6 +100,16 @@
 ```bash
 pip install -r requirements.txt
 ```
+2. 配置环境变量
+   - 复制`.env.example`文件为`.env`
+   - 填写OpenAI API密钥和其他必要的配置
+```bash
+cp .env.example .env
+```
+3. 启动项目
+```bash
+python -m flask run
+```
 
 ## 贡献
 贡献是使开源社区成为学习、激励和创造的惊人之处。非常感谢你所做的任何贡献。如果你有任何建议或功能请求，请先开启一个议题讨论你想要改变的内容。
