@@ -1,4 +1,4 @@
-# AetherOps-Platform
+# AetherLLMOps
 ![GitHub stars](https://img.shields.io/github/stars/chyu-wissfi/LLMOps-all-stack?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/chyu-wissfi/LLMOps-all-stack?style=social)
 ![GitHub watchers](https://img.shields.io/github/watchers/chyu-wissfi/LLMOps-all-stack?style=social)
@@ -8,9 +8,9 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/chyu-wissfi/LLMOps-all-stack?color=red)
 
 
-## AetherOps架构
+## AetherLLMOps架构
 
-![AetherOps架构](README/AetherOps架构.png)
+![AetherLLMOps架构](README/AetherLLMOps架构.png)
 
 **文件组织方式**：
 
