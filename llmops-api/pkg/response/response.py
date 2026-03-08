@@ -49,7 +49,7 @@ def message(code: HttpCode = None, msg: str = "") -> dict:
     基础的消息响应JSON格式
     固定返回消息提示，数据固定为空字典
     """
-    return json(Response(code=code, message=msg, data={})), 200
+    return json(Response(code=code, message=msg, data={}))
 
 def success_message(msg: str = "") -> dict:
     """

@@ -10,6 +10,8 @@ from internal.exception import CustomException
 from pkg.response import json, Response, HttpCode
 import os
 from flask_sqlalchemy import SQLAlchemy
+from internal.model.app import App
+
 
 class Http(Flask):
     """
@@ -25,6 +27,9 @@ class Http(Flask):
 
         # 3.初始化Flask扩展
         db.init_app(self)
+        with self.app_context():
+            _ = App()      #  这么写的作用是为了触发App模型的注册，否则可能会报错
+            db.create_all()
 
         # 4. 注册应用路由
         router.register_router(self)
