@@ -11,13 +11,22 @@ from pkg.response import json, Response, HttpCode
 import os
 from pkg.sqlalchemy import SQLAlchemy
 from internal.model.app import App
+from flask_migrate import Migrate
 
 
 class Http(Flask):
     """
     HTTP 服务引擎
     """
-    def __init__(self, *args, conf: Config, db: SQLAlchemy, router: Router, **kwargs) -> None:
+    def __init__(
+            self, 
+            *args,
+            conf: Config,
+            db: SQLAlchemy,
+            migrate: Migrate,
+            router: Router,
+            **kwargs
+        ) -> None:
         super().__init__(*args, **kwargs) 
         # 1. 初始化应用配置
         self.config.from_object(conf)
@@ -27,9 +36,10 @@ class Http(Flask):
 
         # 3.初始化Flask扩展
         db.init_app(self)
-        with self.app_context():
-            _ = App()      #  这么写的作用是为了触发App模型的注册，否则可能会报错
-            db.create_all()
+        migrate.init_app(self, db, directory="internal/migration")
+        # with self.app_context():
+        #     _ = App()      #  这么写的作用是为了触发App模型的注册，否则可能会报错
+        #     db.create_all()
 
         # 4. 注册应用路由
         router.register_router(self)

@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 from config import Config
 from .module import ExtensionModule
 from pkg.sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 
 
@@ -22,7 +23,13 @@ conf = Config()
 # 初始化依赖注入容器
 injector = Injector([ExtensionModule])
 
-app = Http(__name__, conf=conf, db=injector.get(SQLAlchemy), router=injector.get(Router))
+app = Http(
+    __name__,
+    conf=conf,
+    db=injector.get(SQLAlchemy),
+    router=injector.get(Router),
+    migrate=injector.get(Migrate),
+)
 
 
 if __name__ == "__main__":
