@@ -12,7 +12,6 @@ import pytest
 from app.http.app import app
 
 
-
 @pytest.fixture()
 def client():
     """

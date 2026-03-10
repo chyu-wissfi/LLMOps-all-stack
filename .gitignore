@@ -9,6 +9,12 @@ env/
 .env
 .env/
 .venv/
+.idea/*
+# storage
+storage/*
+
+# study
+study/*
 
 # Distribution / packaging
 .Python
@@ -37,3 +43,5 @@ wheels/
 # OS files
 .DS_Store
 Thumbs.db
+
+node_demo/*

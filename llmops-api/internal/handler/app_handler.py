@@ -10,7 +10,7 @@ from internal.exception import FailException
 from internal.service import AppService
 from dataclasses import dataclass
 from injector import inject
-import uuid
+from uuid import UUID
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from langchain_core.output_parsers import StrOutputParser
@@ -31,28 +31,28 @@ class AppHandler:
  
         return success_message(f"创建应用成功, 应用ID: {app.id}")
 
-    def get_app(self, id: uuid.UUID) -> dict:
+    def get_app(self, id: UUID) -> dict:
         """
         获取应用详情
         """
         app = self.app_service.get_app(id)
         return success_message(f"获取应用成功, 应用名称: {app.name}")
 
-    def update_app(self, id: uuid.UUID) -> dict:
+    def update_app(self, id: UUID) -> dict:
         """
         更新应用详情
         """
         app = self.app_service.update_app(id)
         return success_message(f"更新应用成功, 应用名称修改为: {app.name}")
 
-    def delete_app(self, id: uuid.UUID) -> dict:
+    def delete_app(self, id: UUID) -> dict:
         """
         删除应用详情
         """
         app = self.app_service.delete_app(id)
         return success_message(f"删除应用成功, 应用ID: {app.id}")
 
-    def completion(self) -> dict:
+    def debug(self, app_id: UUID) -> dict:
         """
         聊天接口
         基础聊天接口，接收用户输入，调用OpenAI API，返回模型响应
