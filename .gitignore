@@ -14,7 +14,8 @@ env/
 storage/*
 
 # study
-study/*
+study/
+**/study/
 
 # Distribution / packaging
 .Python
