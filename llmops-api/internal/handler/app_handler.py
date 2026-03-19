@@ -145,10 +145,8 @@ class AppHandler:
         """
         测试接口
         """
-        google_serper = self.provider_factory.get_tool("google", "google_serper")()
-        print(google_serper)
-        print(google_serper.invoke("2024年北京半程马拉松的前3名成绩是多少"))
-        return success_json()
+        providers = self.provider_factory.get_provider_entities()
+        return success_json({"providers": [provider.model_dump() for provider in providers]})
 
         # raise FailException("数据未找到")
 

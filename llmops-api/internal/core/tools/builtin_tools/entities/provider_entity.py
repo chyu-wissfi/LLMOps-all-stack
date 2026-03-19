@@ -4,7 +4,7 @@ Time: 2026/3/18
 @Description: Provider entity
 """
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any
 from .tool_entity import ToolEntity
 import os
@@ -32,8 +32,8 @@ class Provider(BaseModel):
     name: str  # 服务提供商名字
     position: int  # 服务提供商的顺序
     provider_entity: ProviderEntity  # 服务提供商实体类
-    tool_entity_map: dict[str, ToolEntity] = {}  # 工具实体类映射表
-    tool_func_map: dict[str, Any] = {}  # 工具函数映射表
+    tool_entity_map: dict[str, ToolEntity] = Field(default_factory=dict)  # 工具实体类映射表
+    tool_func_map: dict[str, Any] = Field(default_factory=dict)  # 工具函数映射表
 
     def __init__(self, **kwargs):
         """
