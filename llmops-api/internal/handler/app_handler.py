@@ -23,6 +23,7 @@ from langchain_core.tracers import Run
 from langchain_openai import ChatOpenAI
 from langchain.memory import ConversationBufferWindowMemory
 from langchain_community.chat_message_histories import FileChatMessageHistory
+from internal.core.tools.builtin_tools.providers import ProviderFactory
 
 
 
@@ -34,6 +35,7 @@ class AppHandler:
     """
     app_service: AppService
     vector_database_service: VectorDatabaseService
+    provider_factory: ProviderFactory
 
     def create_app(self) -> dict:
         """
@@ -140,7 +142,15 @@ class AppHandler:
         return success_json({"content": content})
 
     def ping(self):
-        raise FailException("数据未找到")
+        """
+        测试接口
+        """
+        google_serper = self.provider_factory.get_tool("google", "google_serper")()
+        print(google_serper)
+        print(google_serper.invoke("2024年北京半程马拉松的前3名成绩是多少"))
+        return success_json()
+
+        # raise FailException("数据未找到")
 
 
 # if __name__ == "__main__":
