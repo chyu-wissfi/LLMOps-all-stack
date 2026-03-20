@@ -8,9 +8,12 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/chyu-wissfi/LLMOps-all-stack)
 ![GitHub last commit](https://img.shields.io/github/last-commit/chyu-wissfi/LLMOps-all-stack?color=red)
 
+目前README.md文件正在更新中，还比较粗糙，项目整体框架完善后会整体更新整理一次
+一些模块的技术文档和这个项目的API文档会随时更新，可以在LLMOps项目技术文档中查看到
+
 ## AetherLLMOps 架构
 
-![LLMOps架构图](./README/LLMOps%E6%9E%B6%E6%9E%84%E5%9B%BE.jpg)
+待更新
 
 ## 起动后端项目
 
