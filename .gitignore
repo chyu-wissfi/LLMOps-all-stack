@@ -11,11 +11,8 @@ env/
 .venv/
 .idea/*
 # storage
-storage/*
-
-# study
-study/
-**/study/
+**/storage/
+storage/
 
 # Distribution / packaging
 .Python
