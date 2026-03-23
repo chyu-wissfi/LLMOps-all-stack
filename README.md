@@ -68,3 +68,11 @@ gantt
 | API  | Application Programming Interface，应用程序接口 |
 | QPS  | Queries Per Second，每秒查询率                  |
 | P99  | 99%的请求响应时间                               |
+
+## 贡献
+
+贡献是使开源社区成为学习、激励和创造的惊人之处。非常感谢您所做的任何贡献。如果您有任何建议或功能请求，请先开启一个议题讨论您想要改变的内容。
+
+## 许可证
+
+该项目根据 Apache-2.0 许可证的条款进行许可。详情请参见[LICENSE](LICENSE)文件。
