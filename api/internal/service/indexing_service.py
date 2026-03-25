@@ -38,7 +38,7 @@ from .vector_database_service import VectorDatabaseService
 @inject
 @dataclass
 class IndexingService(BaseService):
-    """勾引构建服务"""
+    """索引构建服务"""
     db: SQLAlchemy
     redis_client: Redis
     file_extractor: FileExtractor

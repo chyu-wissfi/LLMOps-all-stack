@@ -25,7 +25,24 @@
 
 ![docker-compose.jpg](./README/docker-compose.jpg)
 
+## 知识库模块
+
+### 一些优化点
+
+- 考虑到处理大量文档分块、嵌入等的长耗时，利用 Celery+Redis 构建异步任务队列处理分块嵌入，用线程池优化向量入库。
+- 随着功能迭代，针对检索准确率不够，在 RAG 引入检索前处理+混合检索+重排，在《》数据下测试，准确率相比语义检索提升30%+，召回率从60%提升至83%+。
+- 在文档与片段(chunk)的更新与删除时，实现 Redis 缓存锁，保障数据安全。
+
+### 检索器设计思路
+
+- 在全文检索时，项目考虑的是第一种方案，增删改都要将数据同步到关键词表中，简化全文检索的实现。
+- 第二种方法，本项目并未使用，因为其在全文检索时，需要将所有 doc 和 seg 都遍历一遍再过滤，导致查询效率低。
+
+![dateset_hybrid_retrieval_flowchart.png](./README/dateset_hybrid_retrieval_flowchart.png)
+
 ## 快速开始
+
+填写`docker-compose.yml`文件中的环境变量，包括数据库连接信息、缓存数据库连接信息、向量数据库连接信息，各种API密钥等。
 
 ```bash
 cd docker

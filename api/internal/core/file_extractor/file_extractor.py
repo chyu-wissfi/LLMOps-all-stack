@@ -33,7 +33,7 @@ from internal.service import CosService
 @inject
 @dataclass
 class FileExtractor:
-    """文件提取提，用于将远程文件、upload_file记录加载成LangChain对应的文档或字符串"""
+    """文件提取器，用于将远程文件、upload_file记录加载成LangChain对应的文档或字符串"""
     cos_service: CosService
 
     def load(
