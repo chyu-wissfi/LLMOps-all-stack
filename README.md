@@ -25,6 +25,15 @@
 
 ![docker-compose.jpg](./README/docker-compose.jpg)
 
+## 快速开始
+
+填写`docker-compose.yml`文件中的环境变量，包括数据库连接信息、缓存数据库连接信息、向量数据库连接信息，各种API密钥等。
+
+```bash
+cd docker
+docker-compose up -d
+```
+
 ## 知识库模块
 
 ### 一些优化点
@@ -40,20 +49,22 @@
 
 ![dateset_hybrid_retrieval_flowchart.png](./README/dateset_hybrid_retrieval_flowchart.png)
 
-## 快速开始
+## 流式输出
 
-填写`docker-compose.yml`文件中的环境变量，包括数据库连接信息、缓存数据库连接信息、向量数据库连接信息，各种API密钥等。
+考虑在`LLMOps`项目中，借用`队列(Queue)+线程(Thread)`的方式来重新实现流式输出这个逻辑，思路如下：
 
-```bash
-cd docker
-docker-compose up -d
-```
+构建一个 队列(Queue)，用于存储数据，队列的数据先进先出，并且是线程安全的，非常适合用于开发。
+在`LangGraph`构建的节点(nodes)中，所有代码都使用`stream()` 代替`invoke()`，获取数据的时候，将数据添加到队列(Queue) 中。
+创建一条线程，专门用于执行`LangGraph`图程序，这样不影响主线程。
+在主线程监听队列(Queue)里的数据，并逐个取出，然后进行流式事件响应输出，直到取到结果为`None`结束请求。
+基于该思想，在`LLMOps`项目中实现`流式事件响应 + 块内容响应`的两种输出响应运行流程如下：
+
+![streaming_output](./README/stream-output.png)
 
 ## 项目时间节点
 
 ```mermaid
 gantt
-    title LLMOps项目开发计划
     dateFormat  YYYY-MM-DD
     section 第一阶段
     需求分析              :2026-01-01, 14d
@@ -83,8 +94,6 @@ gantt
 | LLM  | Large Language Model，大语言模型                |
 | RAG  | Retrieval-Augmented Generation，检索增强生成    |
 | API  | Application Programming Interface，应用程序接口 |
-| QPS  | Queries Per Second，每秒查询率                  |
-| P99  | 99%的请求响应时间                               |
 
 ## 贡献
 
