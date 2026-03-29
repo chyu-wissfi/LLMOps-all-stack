@@ -22,6 +22,14 @@
 
 # 项目：LLMOps平台全栈
 
+在LLMOps目录下提交代码到Github命令为：
+
+```bash
+git add .
+git commit -a -m "<描述信息，需要你决定>"
+git push llmops
+```
+
 ## 后端
 
 ### 技术栈
@@ -131,7 +139,24 @@ api/
 
 ## 前端
 
+详细目录结构可以从记忆读取：/home/wissfi/.claude/projects/-home-wissfi-projects-LLMOps/memory
+
 ### 使用框架
 
 - vue3
+- vite 构建
 - TypeScrip
+
+### 目录结构
+
+- docker/ - Docker 和 Nginx 配置
+- src/assets/ - 图片、样式等资源
+- src/components/ - 公共组件、图标
+- src/config/ - 配置文件
+- src/hooks/ - 自定义 Vue hooks
+- src/models/ - TypeScript 类型定义
+- src/router/ - 路由配置
+- src/services/ - API 接口服务
+- src/stores/ - Pinia 状态管理
+- src/utils/ - 工具函数
+- src/views/ - 页面视图（按功能模块划分：auth、space、store、web-apps等）
