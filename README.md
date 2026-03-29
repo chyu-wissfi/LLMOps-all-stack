@@ -147,7 +147,6 @@ api/
 ├── Dockerfile
 ├── requirements.txt
 └── ...
-`internal/core/` 是项目的核心引擎层，包含：
 ```
 
 ### 应用编排模块
