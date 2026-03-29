@@ -1,162 +1,213 @@
-# 个人偏好
+# CLAUDE.md
 
-## 沟通方式
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-- 使用中文回复
-- 代码注释使用中文
-- 解释简洁直接，不要过多铺垫
+## 项目概述
 
-## 通用代码风格
+LLMOps平台全栈项目，包含前端(Vue3 + Vite + TypeScript)和后端(Flask + SQLAlchemy + LangGraph)。
 
-- ./api/ 目录下的后端代码缩进使用 4 空格
-- ./ui/ 目录下的前端代码缩进使用 2 空格
-- 优先使用 async/await
-- 变量命名使用 camelCase
-- 常量命名使用 UPPER_SNAKE_CASE
+## 常用命令
 
-## 我的常用工具
-
-- 包管理器: conda
-- 编辑器: TRAE CN
-- 终端: Bash
-
-# 项目：LLMOps平台全栈
-
-在LLMOps目录下提交代码到Github命令为：
+### 前端开发 (./ui/)
 
 ```bash
-git add .
-git commit -a -m "<描述信息，需要你决定>"
-git push llmops
+cd ui
+
+# 安装依赖
+npm install
+
+# 开发服务器
+npm run dev
+
+# 生产构建
+npm run build
+
+# 运行测试
+npm run test:unit
+
+# 代码格式化
+npm run format
+
+# 代码检查
+npm run lint
 ```
 
-## 后端
+### 后端开发 (./api/)
 
-### 技术栈
+```bash
+cd api
 
-- Flask
-- SQLAlchemy 连接 PostgreSQL
-- LangGraph
-- Redis
-- Celery
+# 创建conda环境
+conda create -n llmops python=3.11
+conda activate llmops
 
-### 后端：./api 的目录结构
+# 安装依赖
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
+
+# 运行开发服务器 (自动重载)
+python app.py
+
+# 或使用gunicorn
+python -m gunicorn app:app -c gunicorn.conf.py
+
+# 运行测试
+pytest
+
+# 运行单个测试
+pytest test/path/to/test_file.py::test_function -v
+
+# 代码格式化
+black .
+isort .
+
+# 运行pre-commit
+pre-commit run --all-files
+```
+
+### 数据库操作
+
+```bash
+cd api
+
+# 数据库迁移
+alembic revision --autogenerate -m "migration message"
+alembic upgrade head
+alembic downgrade -1
+```
+
+### Docker开发
+
+```bash
+# 启动所有服务
+docker-compose -f docker/docker-compose.yml up -d
+
+# 查看日志
+docker-compose -f docker/docker-compose.yml logs -f
+
+# 停止服务
+docker-compose -f docker/docker-compose.yml down
+```
+
+## 代码规范
+
+### 缩进规范
+- **后端代码** (./api/): 4空格缩进
+- **前端代码** (./ui/): 2空格缩进
+
+### 命名规范
+- 变量: camelCase
+- 常量: UPPER_SNAKE_CASE
+- 类名: PascalCase
+- 文件名: snake_case (后端), camelCase (前端)
+
+### 注释规范
+- 代码注释使用**中文**
+- 复杂逻辑必须添加注释
+
+### 异步代码
+- 优先使用 async/await
+- 避免嵌套回调
+
+## 架构说明
+
+### 前端架构 (Vue3 + Vite)
+
+```
+src/
+├── components/     # 公共组件
+├── views/          # 页面视图
+│   ├── auth/       # 认证相关
+│   ├── space/      # 工作空间(apps, datasets, workflows, tools)
+│   ├── store/      # 商店
+│   └── web-apps/   # Web应用
+├── services/       # API服务层
+├── stores/         # Pinia状态管理
+├── models/         # TypeScript类型定义
+├── router/         # 路由配置
+├── hooks/          # 自定义Vue hooks
+└── utils/          # 工具函数
+```
+
+### 后端架构 (Flask)
 
 ```
 api/
-├── config/                     # 配置模块
-│   ├── __init__.py
-│   ├── config.py               # 配置加载逻辑
-│   └── default_config.py       # 默认配置项
-├── app/                        # 应用入口层
-│   ├── __init__.py
-│   └── http/                   # HTTP服务入口
-│       ├── __init__.py
-│       ├── app.py              # FastAPI 应用实例创建、中间件注册
-│       └── module.py           # 依赖注入模块配置
-├── internal/                   # 核心业务实现层
-│   ├── core/                   # 核心组件（工作流、向量存储、文档处理等）
-│   │   ├── agent/              # Agent 相关实现
-│   │   │   ├── agent_builder.py
-│   │   │   ├── agent_executor.py
-│   │   │   └── conversation_agent.py
-│   │   ├── builtin_apps/       # 内置应用实现
-│   │   │   ├── chat/
-│   │   │   ├── completion/
-│   │   │   ├── dataset_qa/
-│   │   │   └── workflow/
-│   │   ├── file_extractor/     # 文件提取工具
-│   │   ├── langchain_fix/      # LangChain 补丁/修复
-│   │   ├── language_model/     # 语言模型封装
-│   │   │   ├── base.py         # LLM 基类
-│   │   │   ├── factory.py      # LLM 工厂
-│   │   │   ├── openai.py       # OpenAI 模型封装
-│   │   │   ├── anthropic.py    # Anthropic 模型封装
-│   │   │   └── azure_openai.py # Azure OpenAI 模型封装
-│   │   ├── memory/             # 对话记忆管理
-│   │   ├── retrievers/         # 检索器实现
-│   │   ├── tools/              # 工具集
-│   │   │   ├── base_tool.py
-│   │   │   ├── builtin_tools/
-│   │   │   │   ├── search/
-│   │   │   │   ├── calculator/
-│   │   │   │   └── web_scraper/
-│   │   │   └── api_tools/
-│   │   ├── unstructured/       # 非结构化文档处理
-│   │   │   ├── document_processor.py
-│   │   │   └── nltk_data/      # NLTK 数据文件
-│   │   │       ├── punkt/
-│   │   │       │   └── ... (18种语言的 punkt 分词数据)
-│   │   │       └── punkt_tab/
-│   │   │           └── ... (22种语言的 punkt_tab 分词数据，包含 abbrev_types.txt、collocations.tab、ortho_context.tab等)
-│   │   ├── vector_store/       # 向量数据库存储
-│   │   └── workflow/           # 工作流引擎核心
-│   │       ├── workflow.py                  # 工作流引擎主逻辑
-│   │       ├── workflow_validate_rule.jpg   # 工作流验证规则图
-│   │       ├── entities/                    # 工作流实体定义
-│   │       │   ├── node_entity.py           # 节点实体
-│   │       │   ├── edge_entity.py           # 边实体
-│   │       │   ├── variable_entity.py       # 变量实体
-│   │       │   └── workflow_entity.py       # 工作流实体
-│   │       ├── nodes/                       # 工作流节点类型实现
-│   │       │   ├── base_node.py             # 节点基类
-│   │       │   ├── start/                   # 开始节点
-│   │       │   ├── end/                     # 结束节点
-│   │       │   ├── llm/                     # LLM 调用节点
-│   │       │   ├── code/                    # 代码执行节点
-│   │       │   ├── tool/                    # 工具调用节点
-│   │       │   ├── http_request/            # HTTP 请求节点
-│   │       │   ├── dataset_retrieval/       # 数据集检索节点
-│   │       │   ├── template_transform/      # 模板转换节点
-│   │       │   ├── question_classifier/     # 问题分类节点
-│   │       │   └── iteration/               # 循环迭代节点
-│   │       └── utils/                       # 工作流工具函数
-│   ├── entity/                 # 实体定义
-│   ├── exception/              # 自定义异常定义
-│   ├── extension/              # 扩展模块
-│   ├── handler/                # API 接口处理器（Controller层）
-│   ├── lib/                    # 内部工具库
-│   ├── middleware/             # HTTP 中间件
-│   ├── migration/              # 数据库迁移（Alembic）
-│   ├── model/                  # 数据库模型（DAO层）
-│   ├── router/                 # 路由配置
-│   ├── schema/                 # 请求/响应模型（Pydantic）
-│   ├── server/                 # 服务启动配置
-│   ├── service/                # 业务逻辑层（Service层）
-│   └── task/                   # 异步任务模块
-├── pkg/                        # 公共可复用组件
-├── storage/                    # 存储相关模块
-├── test/                       # 单元测试/集成测试
-├── Dockerfile
-├── requirements.txt
-└── ...
+├── app/            # 应用入口层
+│   └── http/       # HTTP服务入口
+├── internal/       # 核心业务实现层
+│   ├── core/       # 核心组件
+│   │   ├── agent/          # Agent实现
+│   │   ├── builtin_apps/   # 内置应用
+│   │   ├── language_model/ # 语言模型封装
+│   │   ├── tools/          # 工具集
+│   │   ├── vector_store/   # 向量存储
+│   │   └── workflow/       # 工作流引擎
+│   ├── entity/     # 实体定义
+│   ├── handler/    # API处理器(Controller)
+│   ├── middleware/ # HTTP中间件
+│   ├── model/      # 数据库模型(DAO)
+│   ├── schema/     # 请求/响应模型(Pydantic)
+│   └── service/    # 业务逻辑层
+├── config/         # 配置模块
+├── migration/      # 数据库迁移
+├── pkg/            # 公共可复用组件
+└── test/           # 测试
 ```
 
-### 详细文档
+### 核心模块说明
 
-- 后端 API 文档见 `project-docs/api-document.md`
-- 后端关系数据库表结构见 `api/docs/02.LLMOps数据库ER图.drawio`
+**工作流引擎** (`internal/core/workflow/`)
+- 支持多种节点类型: start, end, llm, code, tool, http_request, dataset_retrieval, template_transform, question_classifier, iteration
+- 实体定义: node_entity, edge_entity, variable_entity, workflow_entity
 
-## 前端
+**语言模型** (`internal/core/language_model/`)
+- 支持多厂商: OpenAI, Anthropic, Azure OpenAI
+- 基类: base.py, 工厂: factory.py
 
-详细目录结构可以从记忆读取：/home/wissfi/.claude/projects/-home-wissfi-projects-LLMOps/memory
+**工具系统** (`internal/core/tools/`)
+- 内置工具: search, calculator, web_scraper
+- API工具: api_tools/
 
-### 使用框架
+## 环境配置
 
-- vue3
-- vite 构建
-- TypeScrip
+### 必需环境变量
 
-### 目录结构
+后端 `.env`:
+```
+# 数据库
+DATABASE_URL=postgresql://user:password@localhost:5432/llmops
 
-- docker/ - Docker 和 Nginx 配置
-- src/assets/ - 图片、样式等资源
-- src/components/ - 公共组件、图标
-- src/config/ - 配置文件
-- src/hooks/ - 自定义 Vue hooks
-- src/models/ - TypeScript 类型定义
-- src/router/ - 路由配置
-- src/services/ - API 接口服务
-- src/stores/ - Pinia 状态管理
-- src/utils/ - 工具函数
-- src/views/ - 页面视图（按功能模块划分：auth、space、store、web-apps等）
+# Redis
+REDIS_URL=redis://localhost:6379/0
+
+# LLM API Keys
+OPENAI_API_KEY=
+ANTHROPIC_API_KEY=
+AZURE_OPENAI_API_KEY=
+
+# Celery
+CELERY_BROKER_URL=redis://localhost:6379/1
+CELERY_RESULT_BACKEND=redis://localhost:6379/2
+```
+
+### 服务依赖
+
+- PostgreSQL 14+
+- Redis 6+
+- Python 3.11+
+- Node.js 18+
+
+## 提交代码到Github
+
+```bash
+git add .
+git commit -a -m "<描述信息>"
+git push llmops
+```
+
+## 参考资料
+
+- 后端API文档: `project-docs/api-document.md`
+- 数据库ER图: `api/docs/02.LLMOps数据库ER图.drawio`
+- 需求文档: `project-docs/requirement-document.md`
