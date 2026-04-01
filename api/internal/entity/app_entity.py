@@ -50,7 +50,7 @@ DEFAULT_APP_CONFIG = {
     "retrieval_config": {
         "retrieval_strategy": "semantic",
         "k": 10,
-        "score": 0.5,
+        "score": 0.6,
     },
     "long_term_memory": {
         "enable": False,

@@ -1,12 +1,12 @@
 <h1 align="center">Aether LLMOps 原生AI 应用开发平台</h1>
 
-![GitHub stars](https://img.shields.io/github/stars/chyu-wissfi/aether-llmops-platform?style=social)
-![GitHub forks](https://img.shields.io/github/forks/chyu-wissfi/aether-llmops-platform?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/chyu-wissfi/aether-llmops-platform?style=social)
-![GitHub repo size](https://img.shields.io/github/repo-size/chyu-wissfi/aether-llmops-platform)
-![GitHub language count](https://img.shields.io/github/languages/count/chyu-wissfi/aether-llmops-platform)
-![GitHub top language](https://img.shields.io/github/languages/top/chyu-wissfi/aether-llmops-platform)
-![GitHub last commit](https://img.shields.io/github/last-commit/chyu-wissfi/aether-llmops-platform?color=red)
+!\[GitHub stars]\(https\://img.shields.io/github/stars/chyu-wissfi/aether-llmops-platform?style=social null)
+!\[GitHub forks]\(https\://img.shields.io/github/forks/chyu-wissfi/aether-llmops-platform?style=social null)
+!\[GitHub watchers]\(https\://img.shields.io/github/watchers/chyu-wissfi/aether-llmops-platform?style=social null)
+!\[GitHub repo size]\(https\://img.shields.io/github/repo-size/chyu-wissfi/aether-llmops-platform null)
+!\[GitHub language count]\(https\://img.shields.io/github/languages/count/chyu-wissfi/aether-llmops-platform null)
+!\[GitHub top language]\(https\://img.shields.io/github/languages/top/chyu-wissfi/aether-llmops-platform null)
+!\[GitHub last commit]\(https\://img.shields.io/github/last-commit/chyu-wissfi/aether-llmops-platform?color=red null)
 
 > 本项目是一个复杂的LLMOps平台开发，通过本项目，你可以全流程打造你自己的 AI 原生应用开发平台，欢迎提issue，参与讨论与贡献。
 
@@ -25,7 +25,7 @@
 为了便于部署和管理，我将这些服务部署到`Docker`容器中，并使用`docker-compose`管理多个容
 器，同时通过 `Nginx` 进行反向代理，连接 `API` 和 `web` 服务，项目整体服务架构设计图如下：
 
-![docker-compose.jpg](./README/docker-compose.jpg)
+!\[docker-compose.jpg]\(./README/docker-compose.jpg null)
 
 ## 快速开始
 
@@ -50,18 +50,18 @@ docker-compose up -d
 核心引擎层`internal/core/`：
 
 - workflow/ - 完整的工作流引擎，支持多种节点类型（LLM、工具调用、HTTP请求、代码执行等）
-- language_model/ - LLM 抽象封装
+- language\_model/ - LLM 抽象封装
 - embedding/ - 文本向量化
-- vector_store/ - 向量数据库管理
+- vector\_store/ - 向量数据库管理
 - unstructured/ - 非结构化文档解析
 - tool/ - 内置工具集
 - memory/ - 对话上下文记忆
 - agent/ - 智能体管理
-- builtin_apps/ 内置应用
+- builtin\_apps/ 内置应用
 
 ### API 项目文件结构梳理：
 
----
+***
 
 ```
 api/
@@ -157,24 +157,24 @@ api/
 
 在 LLMOps 应用编排页面，应用的配置可以划分成几种，例如：
 
-- 草稿配置：用户在前端编排页面修改`Agent`配置时，实时存储的就是 草稿配置，草稿配置只会在 编排页面 调试中生效，在开放`API` 或者 `WebApp` 中均不会起效果。
-- 当前发布的运行配置：即当前 Agent 智能体在开放 `API` 或者在 `WebApp` 中使用的配置信息，由 草稿配置 发布得到。
-- 历史发布的运行配置：记录每一次发布的运行配置，便于在编排页面对配置进行 回退操作，当执行回退操作时会将对应的运行配置同步到草稿配置中，完成对 草稿配置 的覆盖。
+- 草稿配置：用户在前端编排页面修改`Agent`配置时，实时存储的就是草稿配置，草稿配置只会在编排页面调试中生效，在开放`API` 或者 `WebApp` 中均不会起效果。
+- 当前发布的运行配置：即当前 Agent 智能体在开放 `API` 或者在 `WebApp` 中使用的配置信息，由草稿配置发布得到。
+- 历史发布的运行配置：记录每一次发布的运行配置，便于在编排页面对配置进行回退操作，当执行回退操作时会将对应的运行配置同步到草稿配置中，完成对草稿配置的覆盖。
 
-![Agent应用配置草稿与发布配置运行流程](./README/Agent应用配置草稿与发布配置运行流程.jpg)
+!\[Agent应用配置草稿与发布配置运行流程]\(./README/Agent应用配置草稿与发布配置运行流程.jpg null)
 
 在 LLMOps 项目中，考虑使用两张表来完成该运行流程，这两张表分别是：
 
-1. app_config：应用运行配置表，用于存储该 `Agent` 应用实际运行的配置信息（`WebApp`、开放 `API` 运行的 Agent 配置）。
-2. app_config_version：应用配置历史版本表，该表用于存储每次发布的配置信息历史+草稿信息，通过 `config_type` 来标识记录是 历史配置 还是草稿，通过 `version` 字段来标识不同的版本。
+1. app\_config：应用运行配置表，用于存储该 `Agent` 应用实际运行的配置信息（`WebApp`、开放 `API` 运行的 Agent 配置）。
+2. app\_config\_version：应用配置历史版本表，该表用于存储每次发布的配置信息历史+草稿信息，通过 `config_type` 来标识记录是历史配置还是草稿，通过 `version` 字段来标识不同的版本。
 
 那么不同的操作执行的逻辑如下：
 
-1. 创建应用：创建应用的同时添加 app_config_version 记录，并在记录中存储 默认草稿配置信息。
-2. 更新应用草稿配置：将数据同步到 app_config_version 的草稿配置记录中。
-3. 发布应用：取出应用的 app_config_version 草稿配置，同步添加到 app_config 中，同时在app_config_version 中添加一个历史配置信息记录，并更改应用的状态，从而完成发布应用流程。
-4. 更新应用：取出应用的 app_config_version 草稿配置，并同步更新 app_config 中的配置，同时在app_config_version 中添加一条历史配置信息记录，从而完成应用更新流程。
-5. 取消发布：删除 app_config 中的配置，并更改应用的状态。
+1. 创建应用：创建应用的同时添加 app\_config\_version 记录，并在记录中存储默认草稿配置信息。
+2. 更新应用草稿配置：将数据同步到 app\_config\_version 的草稿配置记录中。
+3. 发布应用：取出应用的 app\_config\_version 草稿配置，同步添加到 app\_config 中，同时在app\_config\_version 中添加一个历史配置信息记录，并更改应用的状态，从而完成发布应用流程。
+4. 更新应用：取出应用的 app\_config\_version 草稿配置，并同步更新 app\_config 中的配置，同时在app\_config\_version 中添加一条历史配置信息记录，从而完成应用更新流程。
+5. 取消发布：删除 app\_config 中的配置，并更改应用的状态。
 
 ### 应用配置数据结构设计
 
@@ -207,7 +207,7 @@ api/
 - 在全文检索时，项目考虑的是第一种方案，增删改都要将数据同步到关键词表中，简化全文检索的实现。
 - 第二种方法，本项目并未使用，因为其在全文检索时，需要将所有 doc 和 seg 都遍历一遍再过滤，导致查询效率低。
 
-![dateset_hybrid_retrieval_flowchart.png](./README/dateset_hybrid_retrieval_flowchart.png)
+!\[dateset\_hybrid\_retrieval\_flowchart.png]\(./README/dateset\_hybrid\_retrieval\_flowchart.png null)
 
 ### 流式输出
 
@@ -219,41 +219,17 @@ api/
 在主线程监听队列(Queue)里的数据，并逐个取出，然后进行流式事件响应输出，直到取到结果为`None`结束请求。
 基于该思想，在`LLMOps`项目中实现`流式事件响应 + 块内容响应`的两种输出响应运行流程如下：
 
-![streaming_output](./README/stream-output.png)
-
-## 项目时间节点
-
-```mermaid
-gantt
-    dateFormat  YYYY-MM-DD
-    section 第一阶段
-    需求分析              :2026-01-01, 14d
-    架构设计              :2026-01-15, 16d
-    基础框架搭建           :2026-01-31, 18d
-    数据库表设计           :2026-01-31, 10d
-    section 第二阶段
-    核心模块开发&性能优化   :2026-02-18, 30d
-    工作流引擎&知识库模块   :2026-02-18, 20d
-    多LLM接入&安全性保障   :2026-02-18, 20d
-    section 第三阶段
-    发布渠道集成           :2026-03-17, 15d
-    多模态插件             :2026-03-17, 15d
-    第三方应用集成         :2026-03-17, 15d
-    开放API开发           :2026-03-17, 15d
-    section 第四阶段
-    生产环境调优           :2026-04-02, 20d
-    上线部署              :2026-04-22, 10d
-```
+!\[streaming\_output]\(./README/stream-output.png null)
 
 ## 附录
 
 ### 术语表
 
-| 术语 | 定义                                            |
-| ---- | ----------------------------------------------- |
-| LLM  | Large Language Model，大语言模型                |
-| RAG  | Retrieval-Augmented Generation，检索增强生成    |
-| API  | Application Programming Interface，应用程序接口 |
+| 术语  | 定义                                       |
+| --- | ---------------------------------------- |
+| LLM | Large Language Model，大语言模型               |
+| RAG | Retrieval-Augmented Generation，检索增强生成    |
+| API | Application Programming Interface，应用程序接口 |
 
 ## 贡献
 
