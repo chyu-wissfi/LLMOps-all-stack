@@ -24,3 +24,5 @@ docker/volumes/
 
 # Claude Code相关
 .claude/CLAUDE.local.md
+
+review/
