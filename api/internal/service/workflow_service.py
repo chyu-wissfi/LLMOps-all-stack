@@ -10,7 +10,7 @@ import logging
 import time
 import uuid
 from dataclasses import dataclass
-from typing import Any, Generator
+from typing import Any, Generator·
 from uuid import UUID
 
 from flask import request

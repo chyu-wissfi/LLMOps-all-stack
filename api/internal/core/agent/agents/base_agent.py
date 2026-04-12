@@ -117,7 +117,7 @@ class BaseAgent(Serializable, Runnable):
             config: Optional[RunnableConfig] = None,
             **kwargs: Optional[Any],
     ) -> Iterator[AgentThought]:
-        """流式输出，每个Not节点或者LLM每生成一个token时则会返回相应内容"""
+        """流式输出，每个Node节点或者LLM每生成一个token时则会返回相应内容"""
         # 1.检测子类是否已构建Agent智能体，如果未构建则抛出错误
         if not self._agent:
             raise FailException("智能体未成功构建，请核实后尝试")
