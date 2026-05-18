@@ -9,7 +9,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/chyu-wissfi/aether-llmops-platform?color=red)
 
 > 本项目是一个复杂的LLMOps平台开发，通过本项目，你可以全流程打造你自己的 AI 原生应用开发平台，欢迎提issue，参与讨论与贡献。
-
+## 【注】 本项目已部署在阿里云服务器，该仓库非最终版本。
 ## Aether LLMOps 项目服务架构设计
 
 在整个Aether LLMOps项目中，我使用了多个服务，具体如下：
